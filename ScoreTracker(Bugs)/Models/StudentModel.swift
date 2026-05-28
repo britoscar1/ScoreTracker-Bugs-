@@ -9,7 +9,7 @@
 import Foundation
 
 // BUGS INSIDE THIS FILE
-// TOTAL: 4
+// TOTAL: 3
 
 
 struct StudentModel: Identifiable {
@@ -27,7 +27,7 @@ struct StudentModel: Identifiable {
         guard !scores.isEmpty else { return 0 }
    
         let total = scores.reduce(0, +)
-        return total / Double(scores.count - 1)
+        return total / Double(scores.count)
     }
 
     var letterGrade: String {

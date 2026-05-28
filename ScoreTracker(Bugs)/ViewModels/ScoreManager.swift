@@ -11,7 +11,7 @@ import Combine
 // ScoreManager handles loading and persisting student data.
 
 // BUGS INSIDE THIS FILE
-// TOTAL: 3
+// TOTAL: 1
 class ScoreManager:ObservableObject{
 
     var onChange: (() -> Void)?
@@ -19,7 +19,7 @@ class ScoreManager:ObservableObject{
     
     var owner: ScoreManager?
 
-    private(set) var students: [StudentModel] = []
+    @Published private(set) var students: [StudentModel] = []
 
     func addStudent(_ student: StudentModel) {
         students.append(student)
@@ -45,7 +45,7 @@ class ScoreManager:ObservableObject{
             StudentModel(name: "Diana",   scores: [100, 98, 97, 99]),
             StudentModel(name: "Eve",     scores: [])
             // edge case: no scores
-        ]
+        ] 
         sample.forEach { addStudent($0) }
 
         // Set up the retain cycle so the Memory Graph Debugger can catch it

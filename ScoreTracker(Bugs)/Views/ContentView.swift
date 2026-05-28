@@ -2,7 +2,7 @@ import SwiftUI
 
 
 // BUGS INSIDE THIS FILE
-// TOTAL: 5 
+// TOTAL: 2
 struct ContentView: View {
     
     @StateObject private var manager = ScoreManager()
@@ -46,6 +46,10 @@ struct ContentView: View {
             .sheet(isPresented: $showingAddStudent) {
                 AddStudentView(manager: manager)
             }
+            .sheet(item: $selectedStudent){
+                Text("Selected: \($0.name)")
+                Text("Average: \($0.average, specifier: "%.1f")%")
+            }
         }
     }
 }
@@ -68,9 +72,7 @@ struct StudentRowView: View {
                 Text(student.letterGrade)
                     .font(.title2)
                     .fontWeight(.bold)
-                
-          
-                    .foregroundColor(student.isPasing ? .green : .red)
+                    .foregroundColor(student.isPassing ? .green : .red)
             }
         }
         .padding(.vertical, 4)
@@ -101,7 +103,7 @@ struct AddStudentView: View {
                         let scores = scoreInput
                             .split(separator: ",")
                             .compactMap { Double($0.trimmingCharacters(in: .whitespaces)) }
-                        let student = Student(name: name, scores: scores)
+                        let student = StudentModel(name: name, scores: scores)
                         manager.addStudent(student)
                         dismiss()
                     }
